@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\News;
 use App\Models\Banner;
@@ -132,10 +133,22 @@ class FrontendController extends Controller
     public function product_details($id){
         $products = Product::find($id);
         $tags = explode(',', $products->tags);
-        
+
         return view('frontend.single-product',[
             'product' => $products,
             'tags' => $tags
+        ]);
+    }
+    public function faq(){
+        $faqs = Faq::where('type','faq')->get();
+        return view('frontend.faq',[
+            'faqs' => $faqs
+        ]);
+    }
+    public function delivery(){
+        $faqs = Faq::where('type','delivery')->get();
+        return view('frontend.delivery',[
+            'faqs' => $faqs
         ]);
     }
 }

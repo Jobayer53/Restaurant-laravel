@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Member;
@@ -46,6 +47,8 @@ Route::post('/fd/store', [FrontendController::class, 'fd_store'])->name('fd_stor
 Route::get('/products', [FrontendController::class, 'products'])->name('products');
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('single-product');
 Route::get('/category/product/{id}',[FrontendController::class, 'category_product'])->name('category-product');
+Route::get('/Faq',[FrontendController::class, 'faq'])->name('faq');
+Route::get('/delivery',[FrontendController::class, 'delivery'])->name('delivery');
 
 //backend
 Route::middleware(['auth'])->group(function () {
@@ -72,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
         'menuItem'              => MenuItemController::class,
         'support'               => SupportController::class,
         'feedback'              => FeedbackController::class,
+        'faq'                   => FaqController::class,
         'review'                => ReviewController::class,
         'member'                => MemberController::class,
         'memberSocial'          => MemeberSocialController::class,

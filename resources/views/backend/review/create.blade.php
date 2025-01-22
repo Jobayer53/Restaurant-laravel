@@ -39,7 +39,7 @@
                         <div class="col-6">
                             <label for="" class="form-label">Rate Star</label>
                             <input type="number" min="0" max="5" class="form-control" name="rating" placeholder="Rate Star" >
-                            @error('name')
+                            @error('rating')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

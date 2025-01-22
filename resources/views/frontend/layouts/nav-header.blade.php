@@ -35,9 +35,9 @@
 
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-white" href="my-account.html" style="background: none;">My Account</a></li>
-              <li><a class="dropdown-item text-white" href="delivery.html" style="background: none;">Delivery</a></li>
+              <li><a class="dropdown-item text-white" href="{{ route('delivery') }}" style="background: none;">Delivery</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-white" href="faq.html" style="background: none;">FAQ</a></li>
+              <li><a class="dropdown-item text-white" href="{{ route('faq') }}" style="background: none;">FAQ</a></li>
               {{-- <li><a class="dropdown-item text-white" href="404.html" style="background: none;">404 Page</a></li> --}}
 
 

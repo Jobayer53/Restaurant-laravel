@@ -12,14 +12,14 @@
                 </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
-                <span class="nav-text">Menu</span>
-            </a>
-            <ul aria-expanded="false">
-                <li><a href="{{ route('menuCategory.index') }}">Menu Category</a></li>
-                <li><a href="{{ route('menuItem.index') }}">Menu Item</a></li>
-            </ul>
-        </li>
+                    <i class="flaticon-381-networking"></i>
+                    <span class="nav-text">Menu</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('menuCategory.index') }}">Menu Category</a></li>
+                    <li><a href="{{ route('menuItem.index') }}">Menu Item</a></li>
+                </ul>
+            </li>
 
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
@@ -50,7 +50,15 @@
                 <span class="nav-text">Review</span>
                 </a>
             </li>
-
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-381-networking"></i>
+                <span class="nav-text">FAQ</span>
+            </a>
+            <ul aria-expanded="false">
+                <li><a href="{{ route('faq.index') }}">FAQ</a></li>
+                <li><a href="">Delivery Faq</a></li>
+            </ul>
+        </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                 <i class="flaticon-381-controls-3"></i>
                 <span class="nav-text">Support</span>
