@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="pizza-menu-container">
-                            <h2 class="fw-bold mb-3 ms-3" style="font-size: 40px;">Pizza</h2>
+                            <h2 class="fw-bold mb-3 ms-3" style="font-size: 40px;">{{ $category->name }}</h2>
                                 @foreach ($category->items as $item )
                                 <div class="mb-0 d-flex ">
                                     <img src="{{ asset('uploads/menu/item/'.$item->image) }}" class="img-fluid w-25 d-inline" alt="">

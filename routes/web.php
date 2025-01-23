@@ -56,6 +56,7 @@ Route::get('/add-to-cart/{id}',[FrontendController::class, 'add_to_cart'])->name
 Route::get('/delete-to-cart/{id}',[FrontendController::class, 'delete_to_cart'])->name('delete-to-cart');
 Route::post('/update-to-cart',[FrontendController::class, 'update_to_cart'])->name('update-to-cart');
 
+Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
 //backend
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

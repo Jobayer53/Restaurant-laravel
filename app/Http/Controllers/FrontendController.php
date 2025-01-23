@@ -211,6 +211,7 @@ class FrontendController extends Controller
         $products = Product::findMany($productIds)->keyBy('id');
         $productsWithQuantities = $products->map(function ($product) use ($cart) {
             $product->quantity = $cart[$product->id]['quantity'];
+            $product->subtotal = $cart[$product->id]['price'] * $product->quantity; // Calculate subtotal
             return $product;
         });
         return view('frontend.cart',[
@@ -218,14 +219,26 @@ class FrontendController extends Controller
         ]);
     }
     public function add_to_cart($id){
-
+        // session()->forget('cart');
+        // return back();
         $productId = $id;
         $cart = session()->get('cart', []);
         if (!array_key_exists($productId, $cart)) {
-            // Add product to cart with default quantity as 1
-            $cart[$productId] = ['quantity' => 1];
-            session()->put('cart', $cart);
-            return back();
+            $product = Product::find($productId);
+            if ($product) {
+                // Calculate subtotal based on product price and quantity
+                $subtotal = $product->price * 1; // since the quantity is 1 initially
+                // Add product to cart with default quantity and subtotal
+                $cart[$productId] = [
+                    'quantity' => 1,
+                    'price' => $product->price,
+                    'subtotal' => $subtotal
+                ];
+                session()->put('cart', $cart);
+                return back();
+            } else {
+                return back();
+            }
         }
         return back();
     }
@@ -240,20 +253,40 @@ class FrontendController extends Controller
     public function update_to_cart(Request $request){
         $cart = session()->get('cart', []);
 
-    foreach ($cart as $id => &$details) {
-        $inputName = 'quantity' . $id;
-        if ($request->has($inputName)) {
-            $newQuantity = $request->input($inputName);
-            if ($newQuantity > 0) {
-                $details['quantity'] = $newQuantity;
-            } else {
-                // Optionally remove the item if quantity is zero or less
-                unset($cart[$id]);
+        foreach ($cart as $id => &$details) {
+            $inputName = 'quantity' . $id;
+            if ($request->has($inputName)) {
+                $newQuantity = $request->input($inputName);
+                if ($newQuantity > 0) {
+                    $details['quantity'] = $newQuantity;
+                    $details['subtotal'] = $details['price'] * $newQuantity;
+                } else {
+                    // Optionally remove the item if quantity is zero or less
+                    unset($cart[$id]);
+                }
             }
         }
-    }
 
     session()->put('cart', $cart);
     return back();
     }
+    public function checkout(){
+        $cart = session()->get('cart', []);
+        $productIds = array_keys($cart);
+        $products = Product::findMany($productIds)->keyBy('id');
+        $productsWithQuantities = $products->map(function ($product) use ($cart) {
+            $product->quantity = $cart[$product->id]['quantity'];
+            $product->subtotal = $cart[$product->id]['price'] * $product->quantity; // Calculate subtotal
+            return $product;
+        });
+        return view('frontend.checkout',[
+            'productsWithQuantities' => $productsWithQuantities
+        ]);
+    }
+
+
+
+
+
+
 }

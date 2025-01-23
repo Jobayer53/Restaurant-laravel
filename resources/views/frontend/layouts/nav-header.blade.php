@@ -35,7 +35,7 @@
               {{-- <li><a class="dropdown-item text-white" href="team-member.html" style="background: none;">Team Member</a></li> --}}
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-white" href="{{ route('products') }}" style="background: none;">Products</a></li>
-              <li><a class="dropdown-item text-white" href="my-checkout.html" style="background: none;">My Checkout</a></li>
+              {{-- <li><a class="dropdown-item text-white" href="my-checkout.html" style="background: none;">My Checkout</a></li> --}}
 
 
               <li><hr class="dropdown-divider"></li>

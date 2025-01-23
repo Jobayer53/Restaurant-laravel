@@ -61,7 +61,9 @@
                     <tbody>
                         <form class="quantity-form" action="{{ route('update-to-cart') }}" method="post">
                             @csrf
-
+                            @php
+                                $subtotal = null;
+                            @endphp
                         @foreach ($productsWithQuantities as $product )
                         <tr>
                             <td style="text-align: center; vertical-align: middle;">
@@ -76,13 +78,21 @@
                                     {{ $product->name }}
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                ${{ $product->price }}
+                                $ <span class="price">
+
+                                    {{ $product->price }}
+                                </span>
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                <input type="number" name="quantity{{ $product->id }}" value="{{ $product->quantity }}" min="1" class="form-control">
+                                <input type="number" name="quantity{{ $product->id }}" value="{{ $product->quantity }}" min="1" class="form-control quantity">
                             </td>
                             <td style="text-align: center; vertical-align: middle;">
-                                ${{ $product->price }}
+                                $ <span class="subtotal">
+                                    {{ $product->subtotal }}
+                                    @php
+                                        $subtotal += $product->subtotal
+                                    @endphp
+                                </span>
                             </td>
                         </tr>
                         @endforeach
@@ -117,15 +127,15 @@
                         <div class=" d-flex justify-content-between border-bottom">
 
                             <p class="card-title text-secondary" style="font-size: 16px;">Subtotal:</p>
-                            <p class="card-title text-secondary" style="font-size: 16px;"> $86.00</p>
+                            <p class="card-title text-secondary" style="font-size: 16px;"> ${{ $subtotal }}</p>
                         </div>
                         <div class=" d-flex justify-content-between ">
 
                             <p class="card-title text-secondary" style="font-size: 16px;">Total:</p>
-                            <p class="card-title text-secondary" style="font-size: 16px;"> $86.00</p>
+                            <p class="card-title text-secondary" style="font-size: 16px;"> ${{ $subtotal }}</p>
                         </div>
 
-                        <a  href="my-checkout.html" class="btn btn-dark text-white w-100 mt-3">Proceed to Checkout</a>
+                        <a  href="{{ route('checkout') }}" class="btn btn-dark text-white w-100 mt-3">Proceed to Checkout</a>
                     </div>
                 </div>
 
@@ -225,6 +235,16 @@
             $('#updateButton').on('click',function(){
                 form.submit();
             });
+            let input = $('.quantity');
+            let price = $('.price');
+            // console.log(subtotal.text());
+            // subtotal.text(price.text() * input.val());
+            // $(input).on('change',function(){
+            //     let subtotal = $('.subtotal');
+            //     let val = $(this).val();
+            //     subtotal.text(val * price.text());
+
+            // });
         });
     </script>
   </body>
