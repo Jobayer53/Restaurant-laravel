@@ -46,9 +46,13 @@ Route::get('/testimonial',[FrontendController::class, 'testimonial'])->name('tes
 Route::post('/fd/store', [FrontendController::class, 'fd_store'])->name('fd_store');
 Route::get('/products', [FrontendController::class, 'products'])->name('products');
 Route::get('/product/details/{id}', [FrontendController::class, 'product_details'])->name('single-product');
+Route::get('/product/tag/{tag}', [FrontendController::class, 'product_tag'])->name('tag-product');
 Route::get('/category/product/{id}',[FrontendController::class, 'category_product'])->name('category-product');
 Route::get('/Faq',[FrontendController::class, 'faq'])->name('faq');
 Route::get('/delivery',[FrontendController::class, 'delivery'])->name('delivery');
+Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
+
+Route::get('/add-to-cart/{id}',[FrontendController::class, 'add_to_cart'])->name('add-to-cart');
 
 //backend
 Route::middleware(['auth'])->group(function () {

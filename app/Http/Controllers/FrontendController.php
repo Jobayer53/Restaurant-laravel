@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+
 use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\News;
@@ -14,6 +16,9 @@ use App\Models\Category;
 use App\Models\Feedback;
 use App\Models\MenuCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+
 
 class FrontendController extends Controller
 {
@@ -23,11 +28,15 @@ class FrontendController extends Controller
         $categories = Category::all();
         $news = News::latest()->take(3)->get();
         $reviews = Review::inRandomOrder()->limit(2)->get();
+        $products = Product::inRandomOrder()->limit(8)->get();
+        $productTwo = Product::inRandomOrder()->limit(2)->get();
         return view('frontend.index',[
             'banner' => $banner,
             'categories' => $categories,
             'news' => $news,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'products' => $products,
+            'productTwo' => $productTwo,
         ]);
     }
     public function blog_list()
@@ -51,8 +60,10 @@ class FrontendController extends Controller
     public function menu()
     {
         $categories = MenuCategory::with('items')->get();
+        $products = Product::where('discount_price', '!=', null)->inRandomOrder(4)->get();
         return view('frontend.menu',[
-            'categories' => $categories
+            'categories' => $categories,
+            'products' => $products
         ]);
     }
     public function contact(){
@@ -86,8 +97,10 @@ class FrontendController extends Controller
     }
     public function about_us(){
         $members = Member::inRandomOrder()->limit(3)->get();
+        $products = Product::inRandomOrder()->limit(4)->get();
         return view('frontend.about-us',[
-            'members' => $members
+            'members' => $members,
+            'products' => $products
         ]);
     }
     public function team(){
@@ -117,26 +130,67 @@ class FrontendController extends Controller
     public function products(){
         $cateogries = Category::all();
         $products = Product::all();
+        $topProducts = Product::inRandomOrder()->limit(4)->get();
+        $productTags = Product::all('tags');
+        $allTags = [];
+        foreach ($productTags as $product) {
+            $tags = explode(',', $product->tags);
+            $allTags = array_merge($allTags, $tags);
+        }
+        $uniqueTags = array_unique(array_map('trim', $allTags));
         return view('frontend.product',[
             'products' => $products,
             'cateogries' => $cateogries,
+            'uniqueTags' => $uniqueTags,
+            'topProducts' => $topProducts
         ]);
     }
     public function category_product($id){
         $cateogries = Category::all();
         $products = Product::where('category_id',$id)->get();
+        $topProducts = Product::inRandomOrder()->limit(4)->get();
+        $productTags = Product::all('tags');
+        $allTags = [];
+        foreach ($productTags as $product) {
+            $tags = explode(',', $product->tags);
+            $allTags = array_merge($allTags, $tags);
+        }
+        $uniqueTags = array_unique(array_map('trim', $allTags));
         return view('frontend.product',[
             'products' => $products,
             'cateogries' => $cateogries,
+            'uniqueTags' => $uniqueTags,
+            'topProducts' => $topProducts
         ]);
+
     }
     public function product_details($id){
         $products = Product::find($id);
         $tags = explode(',', $products->tags);
+        $topProducts = Product::inRandomOrder()->limit(4)->get();
 
         return view('frontend.single-product',[
             'product' => $products,
-            'tags' => $tags
+            'tags' => $tags,
+            'topProducts' => $topProducts
+        ]);
+    }
+    public function product_tag($tag){
+        $cateogries = Category::all();
+        $products = Product::where('tags', 'like', '%' . $tag . '%')->get();;
+        $productTags = Product::all('tags');
+        $topProducts = Product::inRandomOrder()->limit(4)->get();
+        $allTags = [];
+        foreach ($productTags as $product) {
+            $tags = explode(',', $product->tags);
+            $allTags = array_merge($allTags, $tags);
+        }
+        $uniqueTags = array_unique(array_map('trim', $allTags));
+        return view('frontend.product',[
+            'products' => $products,
+            'cateogries' => $cateogries,
+            'uniqueTags' => $uniqueTags,
+            'topProducts' => $topProducts
         ]);
     }
     public function faq(){
@@ -150,5 +204,21 @@ class FrontendController extends Controller
         return view('frontend.delivery',[
             'faqs' => $faqs
         ]);
+    }
+    public function cart(){
+        
+        return view('frontend.cart');
+    }
+    public function add_to_cart($id){
+
+        $productId = $id;
+        $cart = session()->get('cart', []);
+        if (!array_key_exists($productId, $cart)) {
+            // Add product to cart with default quantity as 1
+            $cart[$productId] = ['quantity' => 1];
+            session()->put('cart', $cart);
+            return back();
+        }
+        return back();
     }
 }

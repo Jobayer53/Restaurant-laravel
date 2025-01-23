@@ -68,44 +68,12 @@
                         <div class="mt-4">
                             <h2>PRODUCT TAGS</h2>
                             <div class="d-flex flex-wrap">
-                                <span class="badge bg-secondary m-1">Basingstoke</span>
-                                <span class="badge bg-secondary m-1">Bullet</span>
-                                <span class="badge bg-secondary m-1">Cake</span>
-                                <span class="badge bg-secondary m-1">Caramel</span>
-                                <span class="badge bg-secondary m-1">Cheese</span>
-                                <span class="badge bg-secondary m-1">Cherry</span>
-                                <span class="badge bg-secondary m-1">Chicken</span>
-                                <span class="badge bg-secondary m-1">Chocolate</span>
-                                <span class="badge bg-secondary m-1">Coconut</span>
-                                <span class="badge bg-secondary m-1">Deep</span>
-                                <span class="badge bg-secondary m-1">Dish</span>
-                                <span class="badge bg-secondary m-1">Sweet</span>
-                                <span class="badge bg-secondary m-1">Egg</span>
-                                <span class="badge bg-secondary m-1">Garlic</span>
-                                <span class="badge bg-secondary m-1">Lemon</span>
-                                <span class="badge bg-secondary m-1">Milk</span>
-                                <span class="badge bg-secondary m-1">Mozzarella</span>
-                                <span class="badge bg-secondary m-1">Mushroom</span>
-                                <span class="badge bg-secondary m-1">Needle</span>
-                                <span class="badge bg-secondary m-1">Onion</span>
-                                <span class="badge bg-secondary m-1">Pan</span>
-                                <span class="badge bg-secondary m-1">Parmesan</span>
-                                <span class="badge bg-secondary m-1">Pastey</span>
-                                <span class="badge bg-secondary m-1">Proteom</span>
-                                <span class="badge bg-secondary m-1">Pizza</span>
-                                <span class="badge bg-secondary m-1">Pasta</span>
-                                <span class="badge bg-secondary m-1">Pumpkin</span>
-                                <span class="badge bg-secondary m-1">Papadense</span>
-                                <span class="badge bg-secondary m-1">Red onion</span>
-                                <span class="badge bg-secondary m-1">Roll</span>
-                                <span class="badge bg-secondary m-1">Sausage</span>
-                                <span class="badge bg-secondary m-1">Cheery Roll</span>
-                                <span class="badge bg-secondary m-1">Chicago Fire</span>
-                                <span class="badge bg-secondary m-1">Chicken Salad</span>
-                                <span class="badge bg-secondary m-1">Shrimp Soup</span>
-                                <span class="badge bg-secondary m-1">Spicy</span>
-                                <span class="badge bg-secondary m-1">Sugar</span>
-                                <span class="badge bg-secondary m-1">Tomato</span>
+                                @foreach ($uniqueTags as $tag )
+                                <a href="{{ route('tag-product',$tag) }}">
+                                    <span class="badge bg-secondary m-1">{{ $tag }}</span>
+                                </a>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -131,82 +99,10 @@
                                 <span class="price @if (!$product->discount_price) d-block @endif">${{ $product->price }}</span>
 
 
-                                <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
+                                <a href="{{ route('add-to-cart',$product->id) }}" class="btn mt-3 btn-outline-warning">ADD TO CART</a>
                             </div>
                         </div>
                     @endforeach
-                    {{-- <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                            <h5>Gino's Supreme</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                            <h5>Vanilla Cheesecake</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                            <h5>Chicken Salad</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                            <h5>Chicken Salad</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                            <h5>Chicken Salad</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                            <h5>Meaty Legend</h5>
-                            <span class="old-price ">$21.00</span>
-                            <span class="price ">$19.00</span>
-                            <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                            <h5>Gino's Supreme</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                            <h5>Chicken Salad</h5>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                            <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                        </div>
-                    </div> --}}
 
                 </div>
             </div>
@@ -223,41 +119,17 @@
                 <h1 class=" font_oswald_600 text-dark text-center  mb-3">Top Dishes</h1>
             </div>
             <div class="row g-4">
+                @foreach ($topProducts as $product )
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
+                            <h5>{{ $product->name }}</h5>
+                            <p class="price">${{ $product->price }}</p>
+                            <button class="btn btn-outline-warning">ADD TO CART</button>
+                        </div>
+                    </div>
+                @endforeach
 
-
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <p class="price">$25.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                        <h5>Gino's Supreme</h5>
-                        <p class="price">$21.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                        <h5>Vanilla Cheesecake</h5>
-                        <p class="price">$14.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                        <h5>Chicken Salad</h5>
-                        <p class="price">$15.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
 
             </div>
         </div>

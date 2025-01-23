@@ -163,7 +163,7 @@
                         lorem ipsum dolor sit amet
                     </li>
                 </ul>
-                <button class="btn btn-warning text-dark mt-4">About Us</button>
+                <a href="{{ route('products') }}" class="btn btn-warning text-dark mt-4">Order Now</a>
             </div>
             <div class="col-lg-8">
                 <img src="{{ asset('frontend/asset/image/pizza_details.png') }}" class="img-fluid" alt="" style="width: 100%;">
@@ -179,42 +179,16 @@
                 <h1 class=" font_oswald_600 text-dark   mb-3">Top Dishes</h1>
             </div>
             <div class="row g-4">
-
-
+                @foreach($products as $product)
                 <div class="col-md-3">
                     <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <p class="price">$25.00</p>
+                        <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
+                        <h5>{{ $product->name }}</h5>
+                        <p class="price">${{ $product->price }}</p>
                         <button class="btn btn-outline-warning">ADD TO CART</button>
                     </div>
                 </div>
-
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                        <h5>Gino's Supreme</h5>
-                        <p class="price">$21.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                        <h5>Vanilla Cheesecake</h5>
-                        <p class="price">$14.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                        <h5>Chicken Salad</h5>
-                        <p class="price">$15.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </div>

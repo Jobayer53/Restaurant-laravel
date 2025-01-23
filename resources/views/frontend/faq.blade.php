@@ -108,7 +108,7 @@
            <div class="col-lg-12 text-center">
             <h1 class="fw-bold font-oswald_700">Want to Order Our Pizza?</h1>
             <h1 class="fw-bold color-yellow">Do it Right Now!</h1>
-            <a href="{{ route('menu') }}" class="btn btn-dark text-white mt-5">ORDER NOW</a>
+            <a href="{{ route('products') }}" class="btn btn-dark text-white mt-5">ORDER NOW</a>
            </div>
         </div>
     </div>

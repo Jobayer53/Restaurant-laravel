@@ -55,14 +55,14 @@
                     </div>
                     <div class="col-md-6 text-center">
                         <img src="{{ asset('uploads/menu/category/'.$category->image) }}" alt="Pizza" class="pizza-image img-fluid">
-                        <a href="#" class="btn  btn-warning mt-4 ">Order Now</a>
+                        <a href="{{ route('products') }}" class="btn  btn-warning mt-4 ">Order Now</a>
                     </div>
                 </div>
             @else
                 <div class="row align-items-center" @if($key == 0) style="margin-top: 100px;" @endif>
                     <div class="col-md-6 text-center">
                         <img src="{{ asset('uploads/menu/category/'.$category->image) }}" alt="Pizza" class="pizza-image img-fluid">
-                        <a href="#" class="btn  btn-warning mt-4 ">Order Now</a>
+                        <a href="{{ route('products') }}" class="btn  btn-warning mt-4 ">Order Now</a>
                     </div>
                     <div class="col-md-6">
                         <div class="pizza-menu-container">
@@ -151,43 +151,18 @@
                 <h1 class=" font_oswald_600 text-dark  mb-3">Discount Product </h1>
             </div>
             <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <span class="old-price ">$21.00</span>
-                        <span class="price ">$19.00</span>
-                        <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
+                @foreach ($products as $product)
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
+                            <h5>{{ $product->name }}</h5>
+                            <span class="old-price ">${{ $product->discount_price }}</span>
+                            <span class="price ">${{ $product->price }}</span>
+                            <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
+                        </div>
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                        <h5>Gino's Supreme</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                        <h5>Vanilla Cheesecake</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                        <h5>Chicken Salad</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
 
             </div>
         </div>

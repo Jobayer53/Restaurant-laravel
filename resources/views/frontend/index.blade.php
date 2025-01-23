@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {{-- <link rel="stylesheet" href="{{ asset('frontend/asset/css/font-awesome.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('frontend/asset/css/style.css') }}">
-
+    <style>
+        .sale-badge{
+            z-index: 1;
+        }
+    </style>
 
 </head>
   <body>
@@ -27,9 +31,9 @@
                     <h1 class=" font_oswald_700" style="color:#fda209">{{ $banner?->second_title }}</h1>
                     <p class="text-white" style="font-size:12px;">{{ $banner?->short_description }}</p>
                     <div class="d-flex " style="align-items: center;">
-                        <button class="btn btn-dark me-5">ORDER NOW</button>
+                        <a href="{{ route('menu') }}" class="btn btn-dark me-5">ORDER NOW</a>
 
-                        <h3 class="mt-2" style="color:#fda209">${{ $banner? round($banner?->price):0 }}</h3>
+                        <h3 class="mt-2 fw-semibold" style="color:#fda209">${{ $banner? round($banner?->price):0 }}.00</h3>
                     </div>
                 </div>
                 <div class="col-6">
@@ -51,7 +55,10 @@
                 @forelse ($categories as $category )
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12" >
                         <div class="card">
-                        <img src="{{ asset('uploads/category/'.$category->image) }}" class="card-img-top" alt="Pizza">
+                            <a href="{{ route('category-product',$category->id) }}">
+
+                                <img src="{{ asset('uploads/category/'.$category->image) }}" class="card-img-top" alt="Pizza">
+                            </a>
                         <div class=" text-center">
                             <P class="">{{ $category->name }}</P>
                         </div>
@@ -77,77 +84,30 @@
                 <h1 class="text-center font_oswald_600">Popular Dishes</h1>
             </div>
             <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <div class="sale-badge">SALE!</div>
-                        <img src="{{ asset('frontend/asset/image/griffin.png') }}" alt="Griffin" class="img-fluid" style="    margin-bottom: 10px;">
-                        <h5>Griffin</h5>
-                        <p>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
-                        </p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
+                @foreach($products as $product)
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            @if($product->discount_price)
+                            <div class="sale-badge z-3">SALE!</div>
+                            @endif
+                            <a href="{{ route('single-product',$product->id) }}">
+
+                                <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Griffin" class="img-fluid" style="    margin-bottom: 10px;">
+                            </a>
+                            <h5>{{ $product->name }}</h5>
+                            <p>
+                                @if($product->discount_price)
+                                <span class="old-price">${{ $product->discount_price }}</span>
+                                @endif
+                                <span class="price">${{ $product->price }}</span>
+                            </p>
+                            <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/potato_salad.png" alt="Potato Salad" class="img-fluid" style="margin-bottom: -7px;">
-                        <h5>Potato Salad</h5>
-                        <p class="price">$16.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <p class="price">$25.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/pumpkin.png" alt="Pumpkin Soup" class="img-fluid">
-                        <h5>Pumpkin Soup</h5>
-                        <p class="price">$14.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                        <h5>Gino's Supreme</h5>
-                        <p class="price">$21.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                        <h5>Vanilla Cheesecake</h5>
-                        <p class="price">$14.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                        <h5>Chicken Salad</h5>
-                        <p class="price">$15.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/diavola.png" alt="Diavola" class="img-fluid" style="margin-bottom: -5px;">
-                        <h5>Diavola</h5>
-                        <p class="price">$26.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="col-lg-12 text-center mt-5">
-                <button class=" btn btn-warning text-dark">ALL PRODUCTS</button>
+                <a href="{{ route('products') }}" class=" btn btn-warning text-dark">ALL PRODUCTS</a>
             </div>
         </div>
 
@@ -220,22 +180,19 @@
                     <h1 class="font-oswald_700 mb-3" style="font-weight: 700!important;">Best Pizza</h1>
 
                     <div class="row  g-4 mt-5">
-                        <div class="col-md-4">
-                            <div class="product-card">
-                                <img src="{{ asset('frontend/asset/image/italian_beef.png') }}" alt="Chicken Salad" class="img-fluid">
-                                <h5>Italian Beef</h5>
-                                <p class="price">$15.00</p>
-                                <button class="btn btn-outline-warning">ADD TO CART</button>
+                        @foreach ($productTwo as  $product)
+                            <div class="col-md-4">
+                                <div class="product-card">
+                                    <a href="{{ route('single-product',$product->id) }}">
+
+                                        <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Chicken Salad" class="img-fluid">
+                                    </a>
+                                    <h5>{{ $product->name }}</h5>
+                                    <p class="price">${{ $product->price }}</p>
+                                    <button class="btn btn-outline-warning">ADD TO CART</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="product-card">
-                                <img src="asset/image/meat_lover.png" alt="Chicken Salad" class="img-fluid">
-                                <h5>Meat Lovers</h5>
-                                <p class="price">$15.00</p>
-                                <button class="btn btn-outline-warning">ADD TO CART</button>
-                            </div>
-                        </div>
+                        @endforeach
 
 
 
@@ -268,7 +225,7 @@
                         lorem ipsum dolor sit amet
                     </li>
                 </ul>
-                <button class="btn btn-warning text-dark mt-4">About Us</button>
+                <a href="{{ route('about-us') }}" class="btn btn-warning text-dark mt-4">About Us</a>
             </div>
             <div class="col-lg-8">
                 <img src="{{ asset('frontend/asset/image/pizza_details.png') }}" class="img-fluid" alt="" style="width: 100%;">
@@ -374,22 +331,22 @@
                         <div class="slider-wrapper">
                             <!-- Slide 1 -->
                             <div class="slide">
-                                <img src="asset/image/slide_one.png" alt="People enjoying pizza">
+                                <img src="{{ asset('frontend/asset/image/slide_one.png') }}" alt="People enjoying pizza">
                             </div>
 
                             <!-- Slide 2 -->
                             <div class="slide">
-                                <img src="asset/image/slide_two.png" alt="Friends having drinks and pizza">
+                                <img src="{{ asset('frontend/asset/image/slide_two.png') }}" alt="Friends having drinks and pizza">
                             </div>
 
                             <!-- Slide 3 -->
                             <div class="slide">
-                                <img src="asset/image/slide_three.png" alt="Kids eating pizza">
+                                <img src="{{ asset('frontend/asset/image/slide_three.png') }}" alt="Kids eating pizza">
                             </div>
 
                             <!-- Slide 4 -->
                             <div class="slide">
-                                <img src="asset/image/slide_four.png" alt="Restaurant interior">
+                                <img src="{{ asset('frontend/asset/image/slide_four.png') }}" alt="Restaurant interior">
                             </div>
                         </div>
 
