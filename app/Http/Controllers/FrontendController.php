@@ -206,8 +206,16 @@ class FrontendController extends Controller
         ]);
     }
     public function cart(){
-        
-        return view('frontend.cart');
+        $cart = session()->get('cart', []);
+        $productIds = array_keys($cart);
+        $products = Product::findMany($productIds)->keyBy('id');
+        $productsWithQuantities = $products->map(function ($product) use ($cart) {
+            $product->quantity = $cart[$product->id]['quantity'];
+            return $product;
+        });
+        return view('frontend.cart',[
+            'productsWithQuantities' => $productsWithQuantities
+        ]);
     }
     public function add_to_cart($id){
 
@@ -220,5 +228,32 @@ class FrontendController extends Controller
             return back();
         }
         return back();
+    }
+    public function delete_to_cart($id){
+        $cart = session()->get('cart', []);
+        if (array_key_exists($id, $cart)) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
+        return back();
+    }
+    public function update_to_cart(Request $request){
+        $cart = session()->get('cart', []);
+
+    foreach ($cart as $id => &$details) {
+        $inputName = 'quantity' . $id;
+        if ($request->has($inputName)) {
+            $newQuantity = $request->input($inputName);
+            if ($newQuantity > 0) {
+                $details['quantity'] = $newQuantity;
+            } else {
+                // Optionally remove the item if quantity is zero or less
+                unset($cart[$id]);
+            }
+        }
+    }
+
+    session()->put('cart', $cart);
+    return back();
     }
 }

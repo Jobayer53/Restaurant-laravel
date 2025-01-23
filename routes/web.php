@@ -53,6 +53,8 @@ Route::get('/delivery',[FrontendController::class, 'delivery'])->name('delivery'
 Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
 
 Route::get('/add-to-cart/{id}',[FrontendController::class, 'add_to_cart'])->name('add-to-cart');
+Route::get('/delete-to-cart/{id}',[FrontendController::class, 'delete_to_cart'])->name('delete-to-cart');
+Route::post('/update-to-cart',[FrontendController::class, 'update_to_cart'])->name('update-to-cart');
 
 //backend
 Route::middleware(['auth'])->group(function () {

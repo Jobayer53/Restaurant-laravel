@@ -59,95 +59,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <button class="btn ">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                            <td style="width: 12%; text-align: center; vertical-align: middle;">
-                                <img src="asset/image/pizza.avif" class="img-fluid w-100" alt="">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                Italian Beef
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <input type="number" value="1" min="1" class="form-control">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <button class="btn ">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                            <td style="width: 12%; text-align: center; vertical-align: middle;">
-                                <img src="asset/image/pizza.avif" class="img-fluid w-100" alt="">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                Italian Beef
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <input type="number" value="1" min="1" class="form-control">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <button class="btn ">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                            <td style="width: 12%; text-align: center; vertical-align: middle;">
-                                <img src="asset/image/pizza.avif" class="img-fluid w-100" alt="">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                Italian Beef
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <input type="number" value="1" min="1" class="form-control">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <button class="btn ">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                            <td style="width: 12%; text-align: center; vertical-align: middle;">
-                                <img src="asset/image/pizza.avif" class="img-fluid w-100" alt="">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                Italian Beef
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                <input type="number" value="1" min="1" class="form-control">
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;">
-                                $23.00
-                            </td>
-                        </tr>
+                        <form class="quantity-form" action="{{ route('update-to-cart') }}" method="post">
+                            @csrf
 
+                        @foreach ($productsWithQuantities as $product )
+                        <tr>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <a href="{{ route('delete-to-cart', $product->id) }}" class="btn ">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                            <td style="width: 12%; text-align: center; vertical-align: middle;">
+                                <img src="{{ asset('uploads/product/'.$product->image) }}" class="img-fluid w-100" alt="">
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                    {{ $product->name }}
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                ${{ $product->price }}
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <input type="number" name="quantity{{ $product->id }}" value="{{ $product->quantity }}" min="1" class="form-control">
+                            </td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                ${{ $product->price }}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </form>
 
 
 
@@ -156,7 +95,7 @@
                 </table>
                 <div class="card update-card">
                     <div class="card-body">
-                        <button class="btn btn-warning text-dark"> UPDATE CART   </button>
+                        <button id="updateButton" class="btn btn-warning text-dark"> UPDATE CART   </button>
                     </div>
                 </div>
                 <div class="card update-card mt-3">
@@ -276,9 +215,17 @@
 
 
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            let form = $('.quantity-form');
+            $('#updateButton').on('click',function(){
+                form.submit();
+            });
+        });
+    </script>
   </body>
 </html>
