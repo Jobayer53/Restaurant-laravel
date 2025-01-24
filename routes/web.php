@@ -1,27 +1,28 @@
 <?php
 
-use App\Http\Controllers\MemeberSocialController;
 use App\Models\Product;
 use App\Models\MenuCategory;
+use App\Http\Controllers\Member;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\NewsController;
- use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\BlogController;
+ use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupportController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\Member;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\MemberSkillsController;
-use App\Http\Controllers\MemberThumbnailController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\MemberSkillsController;
 use App\Http\Controllers\MenuCategoryController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SupportController;
+use App\Http\Controllers\MemeberSocialController;
+use App\Http\Controllers\MemberThumbnailController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -57,6 +58,12 @@ Route::get('/delete-to-cart/{id}',[FrontendController::class, 'delete_to_cart'])
 Route::post('/update-to-cart',[FrontendController::class, 'update_to_cart'])->name('update-to-cart');
 
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::post('/order-place', [FrontendController::class, 'order_place'])->name('order-place');
+Route::post('/getStates', [FrontendController::class, 'getStates'])->name('getStates');
+Route::get('/my-account',[FrontendController::class, 'my_account'])->name('my_account');
+
+
+
 //backend
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -88,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
         'memberSocial'          => MemeberSocialController::class,
         'memberSkill'           =>MemberSkillsController::class,
         'memberThumbnail'       =>MemberThumbnailController::class,
+        'order'                 =>OrderController::class
 
     ]);
 });

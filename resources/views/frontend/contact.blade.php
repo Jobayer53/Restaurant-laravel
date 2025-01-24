@@ -127,43 +127,17 @@
                 <h1 class=" font_oswald_600 text-dark  mb-3">Discount Product </h1>
             </div>
             <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <span class="old-price ">$21.00</span>
-                        <span class="price ">$19.00</span>
-                        <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
+                @foreach ($products as $product )
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
+                            <h5>{{ $product->name }}</h5>
+                            <span class="old-price ">${{ $product->price }}</span>
+                            <span class="price ">${{ $product->discount_price }}</span>
+                            <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/gino.png" alt="Gino's Supreme" class="img-fluid">
-                        <h5>Gino's Supreme</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/vanila.png" alt="Vanilla Cheesecake" class="img-fluid" style="margin-bottom: 24px;">
-                        <h5>Vanilla Cheesecake</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/chicken.png" alt="Chicken Salad" class="img-fluid">
-                        <h5>Chicken Salad</h5>
-                        <span class="old-price">$21.00</span>
-                        <span class="price">$19.00</span>
-                        <button class="mt-3 btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>

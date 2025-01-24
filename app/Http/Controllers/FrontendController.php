@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Faq;
 use App\Models\Blog;
 use App\Models\News;
+use App\Models\Order;
 use App\Models\Banner;
 use App\Models\Member;
 use App\Models\Review;
@@ -14,7 +15,10 @@ use App\Models\Product;
 use App\Models\Support;
 use App\Models\Category;
 use App\Models\Feedback;
+use App\Models\Countries;
+use Illuminate\Support\Str;
 use App\Models\MenuCategory;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -67,7 +71,10 @@ class FrontendController extends Controller
         ]);
     }
     public function contact(){
-        return view('frontend.contact');
+        $products = Product::where('discount_price', '!=', null)->inRandomOrder()->limit(4)->get();
+        return view('frontend.contact',[
+            'products' => $products
+        ]);
     }
     public function contact_store(Request $request){
         $request->validate([
@@ -272,21 +279,78 @@ class FrontendController extends Controller
     }
     public function checkout(){
         $cart = session()->get('cart', []);
+
         $productIds = array_keys($cart);
+        if(!$productIds){
+            return redirect(route('products'));
+        }
         $products = Product::findMany($productIds)->keyBy('id');
         $productsWithQuantities = $products->map(function ($product) use ($cart) {
             $product->quantity = $cart[$product->id]['quantity'];
             $product->subtotal = $cart[$product->id]['price'] * $product->quantity; // Calculate subtotal
             return $product;
         });
+        $countries = Countries::select('id', 'name')->get();
         return view('frontend.checkout',[
-            'productsWithQuantities' => $productsWithQuantities
+            'productsWithQuantities' => $productsWithQuantities,
+            'countries' => $countries
         ]);
     }
 
 
+    public function order_place(Request $request){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'country' => 'required',
+            'address' => 'required',
+            'apartment' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'postcode' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
 
+        ]);
+        $order = new Order();
+        $order->slug = Str::random(6);
+        $order->first_name = $request->first_name;
+        $order->last_name = $request->last_name;
+        $order->company_name = $request->company_name;
+        $order->address = $request->address;
+        $order->country_id = $request->country;
+        $order->apartment = $request->apartment;
+        $order->city = $request->city;
+        $order->state = $request->state;
+        $order->postcode = $request->postcode;
+        $order->phone = $request->phone;
+        $order->email = $request->email;
+        $order->notes = $request->notes;
+        $order->save();
+        $cart = session()->get('cart', []);
+        $productIds = array_keys($cart);
+        $products = Product::findMany($productIds)->keyBy('id');
+        foreach ($products as $product){
+            $orderItem = new OrderProduct();
+            $orderItem->order_id = $order->id;
+            $orderItem->product_id = $product->id;
+            $orderItem->quantity = $cart[$product->id]['quantity'];
+            $orderItem->price = $cart[$product->id]['price'];
+            $orderItem->subtotal = $cart[$product->id]['subtotal'];
+            $orderItem->save();
 
+        }
 
+        session()->forget('cart');
+        return redirect()->route('index');
+    }
+    public function getStates(Request $request){
+        $country_id = $request->country;
+        $states = Countries::find($country_id)->states;
+        return response()->json($states);
+    }
 
+    public function my_account(){
+        return view('frontend.my-account');
+    }
 }

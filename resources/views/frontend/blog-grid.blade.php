@@ -55,13 +55,12 @@
             <div class="col-lg-4 mb-5">
                 <div class="card shadow-sm rounded-0" style="height: 100%;">
                     <img src="{{ asset('uploads/blog/'.$blog->image ) }}" class="rounded-0" alt="...">
-
                     <div class="card-body">
                       <p class="card-title"> {{ $blog->title }}</p>
-                      <p class="card-text"> {!! $blog->description !!}</p>
+                      <p class="card-text"> {!! \Illuminate\Support\Str::words(strip_tags($blog->description), 10) !!}</p>
                       <a href="#" class="text-warning text-decoration-none">READ MORE <i class="fa fa-arrow-right"></i></a>
                     </div>
-                  </div>
+                </div>
             </div>
 
             @empty

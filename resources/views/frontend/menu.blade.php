@@ -156,9 +156,9 @@
                         <div class="product-card">
                             <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
                             <h5>{{ $product->name }}</h5>
-                            <span class="old-price ">${{ $product->discount_price }}</span>
-                            <span class="price ">${{ $product->price }}</span>
-                            <button class="btn mt-3 btn-outline-warning">ADD TO CART</button>
+                            <span class="old-price ">${{ $product->price }}</span>
+                            <span class="price ">${{ $product->discount_price }}</span>
+                            <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                         </div>
                     </div>
                 @endforeach

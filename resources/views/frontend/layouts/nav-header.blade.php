@@ -39,7 +39,7 @@
 
 
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-white" href="my-account.html" style="background: none;">My Account</a></li>
+              <li><a class="dropdown-item text-white" href="{{ route('my_account') }}" style="background: none;">My Account</a></li>
               <li><a class="dropdown-item text-white" href="{{ route('delivery') }}" style="background: none;">Delivery</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-white" href="{{ route('faq') }}" style="background: none;">FAQ</a></li>
@@ -70,9 +70,9 @@
             </a>
             </li>
             <li>
-                <a class=" btn btn-dark text-white me-3" >QUICK ORDER</a>
+                <a href="{{ route('products') }}" class=" btn btn-dark text-white me-3" >QUICK ORDER</a>
             </li>
-            <li class="ms-3 me-2    ">
+            <li class="ms-3 me-2">
                <img src="{{ asset('frontend/asset/image/logo-fast-delivery.png') }}" alt="">
             </li>
             <li>

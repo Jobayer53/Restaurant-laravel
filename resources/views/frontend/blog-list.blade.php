@@ -60,7 +60,7 @@
                             <button class="btn btn-warning  w-15" style="    position: absolute;right: 15px;top: 15px;">BLOG LIST</button>
                             <div class="card-body">
                               <p class="card-title"> {{ $blog->title }}</p>
-                              <p class="card-text">{!! $blog->description !!}</p>
+                              <p class="card-text">{!! \Illuminate\Support\Str::words(strip_tags($blog->description), 10) !!}</p>
                               <a href="#" class="text-warning text-decoration-none">READ MORE <i class="fa fa-arrow-right"></i></a>
                             </div>
                           </div>

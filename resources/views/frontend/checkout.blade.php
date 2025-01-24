@@ -47,69 +47,90 @@
                                 <h3 class="fw-bold card-title">Billing Details</h3>
                             </div>
                             <div class="card-body" style="background-color: #f9f5f2;">
-                                <form action="">
+                                <form id="billing" action="{{ route('order-place') }}" method="POST">
+                                    @csrf
                                     <div class="row mb-3">
                                         <div class="col-6">
                                             <label for="" class="form-label fw-semibold">First Name <span class="text-danger"   >*</span></label>
-                                            <input type="text" class="form-control" placeholder="First Name">
+                                            <input name="first_name" type="text" class="form-control" placeholder="First Name">
+                                            @error('first_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="col-6">
                                             <label for="" class="form-label fw-semibold">Last Name <span class="text-danger"   >*</span></label>
-                                            <input type="text" class="form-control" placeholder="Last Name">
+                                            <input name="last_name" type="text" class="form-control" placeholder="Last Name">
+                                            @error('last_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Company Name (optional)</label>
-                                        <input type="text" class="form-control" placeholder="Company Name">
+                                        <input name="company_name" type="text" class="form-control" placeholder="Company Name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Country / Region <span class="text-danger"   >*</span></label>
-                                        <select name="" class="form-select" id="">
+                                        <select name="country" class="form-select" id="country">
                                             <option value="">Select a country / region…</option>
-                                            <option value="">Nigeria</option>
-                                            <option value="">Ghana</option>
-                                            <option value="">Kenya</option>
-                                            <option value="">South Africa</option>
-                                            <option value="">Tanzania</option>
-                                            <option value="">Uganda</option>
-                                            <option value="">Zambia</option>
+                                            @foreach($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('country')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Street Address <span class="text-danger"   >*</span></label>
-                                        <input type="text" class="form-control" placeholder="House number and street name">
-                                        <input type="text" class="form-control mt-2" placeholder="Apartment, suite, unit etc. (optional)">
+                                        <input name="address" type="text" class="form-control" placeholder="House number and street name">
+                                        @error('address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                        <input name="apartment" type="text" class="form-control mt-2" placeholder="Apartment, suite, unit etc. (optional)">
+                                        @error('apartment')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Town / City <span class="text-danger"   >*</span></label>
-                                        <input type="text" class="form-control" placeholder="Town / City">
+                                        <input name="city" type="text" class="form-control" placeholder="Town / City">
+                                        @error('city')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">State  <span class="text-danger"   >*</span></label>
-                                        <select name="" class="form-select" id="">
+                                        <select name="state" class="form-select" id="states">
                                             <option value="">Select a state…</option>
-                                            <option value="">Nigeria</option>
-                                            <option value="">Ghana</option>
-                                            <option value="">Kenya</option>
-                                            <option value="">South Africa</option>
-                                            <option value="">Tanzania</option>
-                                            <option value="">Uganda</option>
-                                            <option value="">Zambia</option>
+
                                         </select>
+                                        @error('state')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Postcode / ZIP <span class="text-danger"   >*</span></label>
-                                        <input type="text" class="form-control" placeholder="Postcode / ZIP">
+                                        <input  name="postcode" type="text" class="form-control" placeholder="Postcode / ZIP">
+                                        @error('postcode')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Phone <span class="text-danger"   >*</span></label>
-                                        <input type="text" class="form-control" placeholder="Phone">
+                                        <input name="phone" type="text" class="form-control" placeholder="Phone">
+                                        @error('phone')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Email Address <span class="text-danger"   >*</span></label>
-                                        <input type="email" class="form-control" placeholder="Email Address">
+                                        <input name="email" type="email" class="form-control" placeholder="Email Address">
+                                        @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -122,12 +143,14 @@
                                 <form action="">
                                     <div class="mb-3">
                                         <label for="" class="form-label fw-semibold">Order Notes (optional)</label>
-                                        <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                        <textarea name="notes" id="" cols="30" rows="2" class="form-control" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                     
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -182,7 +205,7 @@
                     <div class="col-lg-12">
                         <div class="card" style="background-color: #f9f5f2;">
                             <div class="card-body">
-                               <button class="btn btn-dark text-white w-100">PLACE ORDER</button>
+                               <button id="placeOrder"  class="btn btn-dark text-white w-100">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
@@ -209,7 +232,34 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('#placeOrder').click(function(){
+                $('#billing').submit();
+            });
+            $('#country').on('change',function(){
+                let country = $(this).val();
+                $.ajax({
+                    url: '/getStates',
+                    method: 'POST',
+                    data: {
+                        country: country,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response){
+                        $('#states').empty();
+                        $('#states').append('<option value="">Select a state / region…</option>');
+                        $.each(response, function(index, state){
+                            $('#states').append('<option value="'+state.id+'">'+state.name+'</option>');
+                        });
 
+                    }
+                });
+            });
+
+        });
+    </script>
 
   </body>
 </html>

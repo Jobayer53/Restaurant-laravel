@@ -71,12 +71,12 @@
                 <p>{{ $product->short_description }}</p>
                 <h3 </h3>
                 <h3 class="text-warning fw-semibold my-4">
-                    <span class=" old-price fw-normal">{{ $product->discount_price? '$'.$product->discount_price : '' }}</span>
-                    ${{ $product->price }}</h3>
+                    <span class=" old-price fw-normal">{{ $product->discount_price? '$'.$product->price : '' }}</span>
+                    ${{ $product->discount_price ? $product->discount_price : $product->price }}</h3>
                 <div class="mb-3 d-flex">
 
                     <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 100px;">
-                    <button class="btn btn-warning ms-3 fw-semibold" style="font-size: 14px;">ADD TO CART</button>
+                    <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                 </div>
                 <div class="mt-4">
                     <p class="fw-semibold">Category:
@@ -143,43 +143,27 @@
                 <h1 class="text-center font_oswald_600">Popular Dishes</h1>
             </div>
             <div class="row g-4">
+                @foreach($topProducts as $product)
                 <div class="col-md-3">
                     <div class="product-card">
-                        <div class="sale-badge">SALE!</div>
-                        <img src="asset/image/griffin.png" alt="Griffin" class="img-fluid" style="    margin-bottom: 10px;">
-                        <h5>Griffin</h5>
+                        @if ($product->discount_price)
+
+                        <div class="sale-badge " style="z-index: 999;">SALE!</div>
+                        @endif
+                        <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Griffin" class="img-fluid" style="    margin-bottom: 10px;">
+                        <h5>{{ $product->name }}</h5>
                         <p>
-                            <span class="old-price">$21.00</span>
-                            <span class="price">$19.00</span>
+                            @if ($product->discount_price)
+                            <span class="old-price">${{ $product->price }}</span>
+                            <span class="price">${{ $product->discount_price }}</span>
+                            @else
+                            <span class="price">${{ $product->price }}</span>
+                            @endif
                         </p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
+                        <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <div class="sale-badge">SALE!</div>
-                        <img src="asset/image/potato_salad.png" alt="Potato Salad" class="img-fluid" style="margin-bottom: -7px;">
-                        <h5>Potato Salad</h5>
-                        <p class="price">$16.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/meaty.png" alt="Meaty Legend" class="img-fluid">
-                        <h5>Meaty Legend</h5>
-                        <p class="price">$25.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="asset/image/pumpkin.png" alt="Pumpkin Soup" class="img-fluid">
-                        <h5>Pumpkin Soup</h5>
-                        <p class="price">$14.00</p>
-                        <button class="btn btn-outline-warning">ADD TO CART</button>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

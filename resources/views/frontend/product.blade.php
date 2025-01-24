@@ -94,9 +94,11 @@
                                 </a>
                                 <h5>{{ $product->name }}</h5>
                                 @if($product->discount_price)
-                                <span class="old-price ">asdfd</span>
+                                <span class="old-price ">${{ $product->price }}</span>
+                                <span class="price">${{ $product->discount_price }}</span>
+                                @else
+                                <span class="price d-block">${{ $product->price }}</span>
                                 @endif
-                                <span class="price @if (!$product->discount_price) d-block @endif">${{ $product->price }}</span>
 
 
                                 <a href="{{ route('add-to-cart',$product->id) }}" class="btn mt-3 btn-outline-warning">ADD TO CART</a>
@@ -125,7 +127,7 @@
                             <img src="{{ asset('uploads/product/'.$product->image) }}" alt="Meaty Legend" class="img-fluid">
                             <h5>{{ $product->name }}</h5>
                             <p class="price">${{ $product->price }}</p>
-                            <button class="btn btn-outline-warning">ADD TO CART</button>
+                            <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                         </div>
                     </div>
                 @endforeach

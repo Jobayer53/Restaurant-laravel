@@ -88,7 +88,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             @if($product->discount_price)
-                            <div class="sale-badge z-3">SALE!</div>
+                            <div class="sale-badge z-3" >SALE!</div>
                             @endif
                             <a href="{{ route('single-product',$product->id) }}">
 
@@ -97,9 +97,11 @@
                             <h5>{{ $product->name }}</h5>
                             <p>
                                 @if($product->discount_price)
-                                <span class="old-price">${{ $product->discount_price }}</span>
-                                @endif
+                                <span class="old-price">${{ $product->price }}</span>
+                                <span class="price">${{ $product->discount_price }}</span>
+                                @else
                                 <span class="price">${{ $product->price }}</span>
+                                @endif
                             </p>
                             <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                         </div>
@@ -189,7 +191,7 @@
                                     </a>
                                     <h5>{{ $product->name }}</h5>
                                     <p class="price">${{ $product->price }}</p>
-                                    <button class="btn btn-outline-warning">ADD TO CART</button>
+                                    <a href="{{ route('add-to-cart',$product->id) }}" class="btn btn-outline-warning">ADD TO CART</a>
                                 </div>
                             </div>
                         @endforeach
@@ -382,7 +384,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ $data->title }}</h5>
-                            <p class="card-text">{!! $data->description !!}</p>
+                            <p class="card-text">{!! \Illuminate\Support\Str::words(strip_tags($data->description), 10) !!}</p>
                             <a href="#" class="read-more">READ MORE <i class="bi bi-arrow-right ms-2"></i></a>
                             <div class="blog-meta mt-3"style="padding-top: 10px; border-top: 1px solid #e0e0e0;">
                                 <span>{{ $data->author }}</span>
