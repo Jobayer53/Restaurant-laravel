@@ -384,8 +384,11 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ $data->title }}</h5>
-                            <p class="card-text">{!! \Illuminate\Support\Str::words(strip_tags($data->description), 10) !!}</p>
-                            <a href="#" class="read-more">READ MORE <i class="bi bi-arrow-right ms-2"></i></a>
+                            <p class="card-text" id="text-{{ $data->id }}">{!! \Illuminate\Support\Str::words(strip_tags($data->description), 10) !!}</p>
+                            {{-- <a href="#" class="read-more">READ MORE <i class="bi bi-arrow-right ms-2"></i></a> --}}
+                            <button onclick="toggleText('{{ $data->id }}')" class="btn text-warning text-decoration-none">
+                                READ MORE <i class="fa fa-arrow-right"></i>
+                            </button>
                             <div class="blog-meta mt-3"style="padding-top: 10px; border-top: 1px solid #e0e0e0;">
                                 <span>{{ $data->author }}</span>
                                 <span>{{ $data->created_at->format('M d, Y') }}</span>
@@ -425,6 +428,29 @@
                 wrapper.scrollLeft += slideWidth;
             });
         });
+        </script>
+          <script>
+            const originalTexts = {};  // Store the full texts
+            const blogIds = [];        // Store blog IDs to manage state
+
+            @foreach ($news as $blog)
+                originalTexts['{{ $blog->id }}'] = `{!! addslashes($blog->description) !!}`;
+                blogIds.push('{{ $blog->id }}');
+            @endforeach
+
+            function toggleText(blogId) {
+                const element = document.getElementById(`text-${blogId}`);
+                const button = element.nextElementSibling;
+                if (button.textContent.includes('READ MORE')) {
+                    // Change to full text
+                    element.innerHTML = originalTexts[blogId];
+                    button.innerHTML = 'READ LESS <i class="fa fa-arrow-right"></i>';
+                } else {
+                    // Change back to shortened text
+                    element.innerHTML = `{!! \Illuminate\Support\Str::words(strip_tags($blog->description), 10, '...') !!}`;
+                    button.innerHTML = 'READ MORE <i class="fa fa-arrow-right"></i>';
+                }
+            }
         </script>
   </body>
 </html>
