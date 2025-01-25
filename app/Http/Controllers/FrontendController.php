@@ -237,11 +237,11 @@ class FrontendController extends Controller
             $product = Product::find($productId);
             if ($product) {
                 // Calculate subtotal based on product price and quantity
-                $subtotal = $product->price * 1; // since the quantity is 1 initially
+                $subtotal = $product->discount_price ? $product->discount_price : $product->price * 1; // since the quantity is 1 initially
                 // Add product to cart with default quantity and subtotal
                 $cart[$productId] = [
                     'quantity' => 1,
-                    'price' => $product->price,
+                    'price' => $product->discount_price ? $product->discount_price : $product->price,
                     'subtotal' => $subtotal
                 ];
                 session()->put('cart', $cart);

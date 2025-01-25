@@ -429,12 +429,17 @@
             });
         });
         </script>
-          <script>
+         <script>
             const originalTexts = {};  // Store the full texts
+            const shortenedTexts = {}; // Store shortened texts
             const blogIds = [];        // Store blog IDs to manage state
 
             @foreach ($news as $blog)
+                // Store the full text
                 originalTexts['{{ $blog->id }}'] = `{!! addslashes($blog->description) !!}`;
+                // Store the shortened text
+                shortenedTexts['{{ $blog->id }}'] = `{!! \Illuminate\Support\Str::words(strip_tags($blog->description), 10, '...') !!}`;
+                // Store the blog ID
                 blogIds.push('{{ $blog->id }}');
             @endforeach
 
@@ -447,10 +452,11 @@
                     button.innerHTML = 'READ LESS <i class="fa fa-arrow-right"></i>';
                 } else {
                     // Change back to shortened text
-                    element.innerHTML = `{!! \Illuminate\Support\Str::words(strip_tags($blog->description), 10, '...') !!}`;
+                    element.innerHTML = shortenedTexts[blogId];
                     button.innerHTML = 'READ MORE <i class="fa fa-arrow-right"></i>';
                 }
             }
         </script>
+
   </body>
 </html>

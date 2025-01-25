@@ -2,11 +2,7 @@
 @section('title')
 Feedback
 @endsection
-@section('style')
-<link href="{{ asset('backend/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
 
-
-@endsection
 @section('content')
 <div class="page-titles">
     <h4>Feedback</h4>
@@ -32,10 +28,4 @@ Feedback
         </div>
     </div>
 </div>
-@endsection
-@section('script')
-<script src="{{ asset('backend/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('backend/js/plugins-init/datatables.init.js') }}"></script>
-
-
 @endsection

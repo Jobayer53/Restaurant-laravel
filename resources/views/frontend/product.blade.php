@@ -80,7 +80,13 @@
                 </div>
                 <div class="row shadow-sm mt-2">
                     <p class="fw-semibold my-3">SHOPPING CART</p>
-                    <a href="#" class="btn btn-light">$00.0 <i class="text-warning fa fa-shopping-cart"></i></a>
+                    @php
+      $cart = session('cart', []);
+    $totalProducts = array_sum(array_map(function ($item) {
+        return $item['subtotal'];
+    }, $cart));
+@endphp
+                    <a href="#" class="btn btn-light">${{ $totalProducts }} <i class="text-warning fa fa-shopping-cart"></i></a>
                 </div>
             </div>
             <div class="col-lg-9">

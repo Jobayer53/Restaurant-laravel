@@ -7,22 +7,22 @@
                 </a>
             </li>
             <li><a href="{{ route('order.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-notepad"></i>
                 <span class="nav-text">Order</span>
                 </a>
             </li>
             <li><a href="{{ route('banner.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-television"></i>
                 <span class="nav-text">Banner</span>
                 </a>
             </li>
             <li><a href="{{ route('timeline.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-layer-1"></i>
                 <span class="nav-text">Timeline</span>
                 </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Menu</span>
                 </a>
                 <ul aria-expanded="false">
@@ -32,7 +32,7 @@
             </li>
 
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-network"></i>
                     <span class="nav-text">Product</span>
                 </a>
                 <ul aria-expanded="false">
@@ -41,22 +41,22 @@
                 </ul>
             </li>
             <li><a href="{{ route('news.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-internet"></i>
                 <span class="nav-text">News</span>
                 </a>
             </li>
             <li><a href="{{ route('blog.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-television"></i>
                 <span class="nav-text">Blog</span>
                 </a>
             </li>
             <li><a href="{{ route('member.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-heart"></i>
                 <span class="nav-text">Member</span>
                 </a>
             </li>
             <li><a href="{{ route('review.index') }}" class="ai-icon" aria-expanded="false">
-                <i class="flaticon-381-networking"></i>
+                <i class="flaticon-381-controls-3"></i>
                 <span class="nav-text">Review</span>
                 </a>
             </li>
@@ -75,7 +75,7 @@
                 <li><a href="{{ route('feedback.index') }}">Feedback</a></li>
             </ul>
         </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            {{-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
                     <span class="nav-text">Apps</span>
                 </a>
@@ -199,7 +199,7 @@
                     </li>
                     <li><a href="page-lock-screen.html">Lock Screen</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
 
         <div class="copyright">

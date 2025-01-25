@@ -54,7 +54,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('blog.edit', $data->id) }}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                            <form action="{{ route('blog.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                            <form action="{{ route('blog.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>
