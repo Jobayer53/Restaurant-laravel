@@ -19,6 +19,7 @@ use App\Models\Countries;
 use Illuminate\Support\Str;
 use App\Models\MenuCategory;
 use App\Models\OrderProduct;
+use App\Models\Timeline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -124,8 +125,10 @@ class FrontendController extends Controller
     }
     public function our_history(){
         $reviews = Review::inRandomOrder()->limit(2)->get();
+        $timelines = Timeline::latest()->get();
         return view('frontend.our-history',[
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'timelines' => $timelines,
         ]);
     }
     public function testimonial(){

@@ -19,6 +19,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\TimelineController;
 use App\Http\Controllers\MemberSkillsController;
 use App\Http\Controllers\MenuCategoryController;
 use App\Http\Controllers\MemeberSocialController;
@@ -95,7 +96,8 @@ Route::middleware(['auth'])->group(function () {
         'memberSocial'          => MemeberSocialController::class,
         'memberSkill'           =>MemberSkillsController::class,
         'memberThumbnail'       =>MemberThumbnailController::class,
-        'order'                 =>OrderController::class
+        'order'                 =>OrderController::class,
+        'timeline'              =>TimelineController::class
 
     ]);
 });

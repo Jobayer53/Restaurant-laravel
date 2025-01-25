@@ -16,6 +16,11 @@
                 <span class="nav-text">Banner</span>
                 </a>
             </li>
+            <li><a href="{{ route('timeline.index') }}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-381-networking"></i>
+                <span class="nav-text">Timeline</span>
+                </a>
+            </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Menu</span>

@@ -91,46 +91,53 @@
                 <h1 class="text-center font_oswald_600">Timeline of Pizzeria</h1>
             </div>
         </div>
-       <div class="row mt-5 right">
-            <div class="col-lg-5"></div>
-            <div class="col-lg-7">
-                <div class="d-flex mt-5 align-items-center">
-                    <h2 class="color-yellow fw-bold" style="margin-left: 43px;">2021</h2>
-                    <img src="{{ asset('frontend/asset/image/Line2.png') }}" class="img-fluid "style="width: 100px; height: 15px; margin-top: -5px;  margin-left: 10px;"   alt="">
-                    <div style="background-image: url({{ asset('frontend/asset/image/team-member-slider-two.avif') }}); background-size: cover;  background-repeat: no-repeat; width:21%; height:115px;border-radius: 50%;">
+        @foreach ($timelines  as $key => $timeline)
+            @if($key % 2 == 0)
+                <div class="row @if($key == 0) mt-5 @else mt-1 @endif right">
+                    <div class="col-lg-5"></div>
+                    <div class="col-lg-7">
+                        <div class="d-flex mt-5 align-items-center">
+                            <h2 class="color-yellow fw-bold" style="margin-left: 43px;">{{ $timeline->year }}</h2>
+                            <img src="{{ asset('frontend/asset/image/Line2.png') }}" class="img-fluid "style="width: 100px; height: 15px; margin-top: -5px;  margin-left: 10px;"   alt="">
+                            <div style="background-image: url({{ asset('uploads/timeline/'.$timeline->image) }}); background-size: cover;  background-repeat: no-repeat; width:21%; height:115px;border-radius: 50%;">
+                            </div>
+                            <p class="ms-4 fw-semibold">{{ $timeline->title }} </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-6">
+                                <p class=" mt-4" style="font-size: 14px; margin-left: 52px;">{{ $timeline->description }}</p>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
                     </div>
-                    <p class="ms-4 fw-semibold">Lorem ipsum dolor </p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-6">
-                        <p class=" mt-4" style="font-size: 14px; margin-left: 52px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, exercitationem nobis. Unde provident perspiciatis,?</p>
-                    </div>
-                    <div class="col-lg-3"></div>
-                </div>
-            </div>
 
 
-        </div>
-        <div class="row mt-1 left">
-            <div class="col-lg-7 ">
-                <div class="d-flex mt-1 align-items-center flex-row-reverse justify-content-center">
-                    <h2 class="color-yellow fw-bold" style="margin-right: -43px;">2020</h2>
-                    <img src="{{ asset('frontend/asset/image/Line1.png') }}" class="img-fluid "style="width: 100px;  height: 15px;margin-top: -5px; margin-left: 10px;" alt="">
-                    <div style="background-image: url({{ asset('frontend/asset/image/team-member-slider-two.avif') }}); background-size: cover;  background-repeat: no-repeat; width:21%; height:115px;border-radius: 50%;">
-                    </div>
-                    <p class="me-4 mb-0 fw-semibold">Lorem ipsum dolor </p>
                 </div>
-                <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-7 ps-0">
-                        <p class=" mt-4" style="font-size: 14px; ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, exercitationem nobis. Unde provident perspiciatis,?</p>
+            @else
+            <div class="row mt-1 left">
+                <div class="col-lg-7 ">
+                    <div class="d-flex mt-1 align-items-center flex-row-reverse justify-content-center">
+                        <h2 class="color-yellow fw-bold" style="margin-right: -43px;">{{ $timeline->year }}</h2>
+                        <img src="{{ asset('frontend/asset/image/Line1.png') }}" class="img-fluid "style="width: 100px;  height: 15px;margin-top: -5px; margin-left: 10px;" alt="">
+                        <div style="background-image: url({{ asset('uploads/timeline/'.$timeline->image) }}); background-size: cover;  background-repeat: no-repeat; width:21%; height:115px;border-radius: 50%;">
+                        </div>
+                        <p class="me-4 mb-0 fw-semibold">{{ $timeline->title }} </p>
                     </div>
-                    <div class="col-lg-4"></div>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-7 ps-0">
+                            <p class=" mt-4" style="font-size: 14px; ">{{ $timeline->description }}</p>
+                        </div>
+                        <div class="col-lg-4"></div>
+                    </div>
                 </div>
+                <div class="col-lg-5"></div>
             </div>
-            <div class="col-lg-5"></div>
-        </div>
+            @endif
+        @endforeach
+
+{{--
        <div class="row mt-1 right">
             <div class="col-lg-5"></div>
             <div class="col-lg-7">
@@ -151,7 +158,7 @@
             </div>
 
 
-        </div>
+       </div>
         <div class="row mt-1 left">
             <div class="col-lg-7 ">
                 <div class="d-flex mt-1 align-items-center flex-row-reverse justify-content-center">
@@ -191,7 +198,7 @@
             </div>
 
 
-        </div>
+        </div> --}}
 
     </div>
 
